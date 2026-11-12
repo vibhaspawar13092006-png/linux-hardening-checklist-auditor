@@ -1,0 +1,42 @@
+{
+    "audit_date": "2026-11-12T00:45:50",
+    "system": "Linux / Ubuntu",
+    "results": [
+        {
+            "check": "File permissions: /etc/passwd",
+            "status": "PASS",
+            "evidence": "Owner UID: 0, Permissions: 0o644",
+            "recommendation": "No immediate permission issue detected."
+        },
+        {
+            "check": "File permissions: /etc/shadow",
+            "status": "PASS",
+            "evidence": "Owner UID: 0, Permissions: 0o640",
+            "recommendation": "No immediate permission issue detected."
+        },
+        {
+            "check": "SSH configuration",
+            "status": "PASS",
+            "evidence": "OpenSSH server is not installed. No SSH daemon is running from this package.",
+            "recommendation": "No action needed if remote SSH access is not required. If SSH is enabled in future, use key-based authentication and disable root login."
+        },
+        {
+            "check": "System updates",
+            "status": "PASS",
+            "evidence": "Upgradable packages found: 0",
+            "recommendation": "No upgradable packages were reported."
+        },
+        {
+            "check": "Firewall status",
+            "status": "PASS",
+            "evidence": "Status: active\nLogging: on (low)\nDefault: deny (incoming), allow (outgoing), disabled (routed)\nNew profiles: skip",
+            "recommendation": "UFW is active. Continue reviewing firewall rules periodically."
+        },
+        {
+            "check": "Running services",
+            "status": "REVIEW",
+            "evidence": "accounts-daemon.service        loaded active running Accounts Service\navahi-daemon.service           loaded active running Avahi mDNS/DNS-SD Stack\nchrony.service                 loaded active running chrony, an NTP client/server\ncolord.service                 loaded active running Manage, Install and Generate Color Profiles\ncron.service                   loaded active running Regular background program processing daemon\ncups-browsed.service           loaded active running Make remote CUPS printers available locally\ncups.service                   loaded active running CUPS Scheduler\ndbus.service                   loaded active running D-Bus System Message Bus\nfwupd.service                  loaded active running Firmware update daemon\ngdm.service                    loaded active running GNOME Display Manager\ngeoclue.service                loaded active running Location Lookup Service\nModemManager.service           loaded active running Modem Manager\nnetworkd-dispatcher.service    loaded active running Dispatcher daemon for systemd-networkd\nNetworkManager.service         loaded active running Network Manager\npolkit.service                 loaded active running Authorization Manager\npower-profiles-daemon.service  loaded active running Power Profiles daemon\nrsyslog.service                loaded active running System Logging Service\nrtkit-daemon.service           loaded active running RealtimeKit Scheduling Policy Service\nsnapd.service                  loaded active running Snap Daemon\nswitcheroo-control.service     loaded active running Switcheroo Control Proxy service\nsystemd-journald.service       loaded active running Journal Service\nsystemd-logind.service         loaded active running User Login Management\nsystemd-oomd.service           loaded active running Userspace Out-Of-Memory (OOM) Killer\nsystemd-resolved.service       loaded active running Network Name Resolution\nsystemd-udevd.service          loaded active running Rule-based Manager for Device Events and Files\nudisks2.service                loaded active running Disk Manager\nunattended-upgrades.service    loaded active running Unattended Upgrades Shutdown\nupower.service                 loaded active running Daemon for power management\nuser@1000.service              loaded active running User Manager for UID 1000\nvirtualbox-guest-utils.service loaded active running Virtualbox guest utils\nwpa_supplicant.service         loaded active running WPA supplicant",
+            "recommendation": "Review running services and disable only those that are unnecessary for this computer."
+        }
+    ]
+}
