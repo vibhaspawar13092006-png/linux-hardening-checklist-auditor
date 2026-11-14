@@ -2,146 +2,123 @@
 
 ## 1. Project Overview
 
-The Linux Hardening Checklist Auditor is a Python-based security auditing tool developed as part of an internship task at Redkross Research Foundation.
+The Linux Hardening Checklist Auditor is a Python-based security auditing project developed as part of the internship task at Redkross Research Foundation.
 
-It checks important Linux security configurations, collects system evidence, identifies areas requiring manual review, and generates a JSON audit report with recommendations.
+The project provides two auditing tools:
+
+1. **Linux Hardening Checklist Auditor:** Reviews essential Linux security configurations, including file permissions, SSH availability, package updates, firewall status and running services.
+2. **SSH Configuration Auditor:** Performs read-only analysis of supplied SSH configuration fixtures and compares observed settings against the provided security baseline.
+
+Both tools generate structured JSON reports containing audit findings and relevant evidence.
 
 ## 2. Project Objectives
 
-- Check important Linux file permissions.
-- Review SSH server installation and configuration.
+- Review important Linux security configurations.
+- Check ownership and permissions of sensitive system files.
+- Examine SSH server availability and configuration.
 - Identify available system package updates.
 - Check firewall status.
-- List running system services.
-- Generate a structured security audit report.
-- Provide recommendations for improving system security.
+- Review running system services.
+- Compare SSH configuration settings with baseline recommendations.
+- Identify security findings and areas requiring manual review.
+- Generate structured JSON audit reports.
+- Provide safe remediation recommendations.
 
-## 3. Technologies Used
+## 3. Technologies and Tools Used
 
 - Operating System: Ubuntu Linux 26.04
 - Programming Language: Python 3
 - Libraries: Python Standard Library
-- Tools: Terminal, systemctl, UFW, APT and VirtualBox
+- Virtualisation: Oracle VirtualBox
+- System Tools: APT, systemctl, UFW and Linux Terminal
+- Version Control: Git and GitHub
 
-## 4. Security Checks Performed
+No additional third-party Python packages are required.
 
-### A. File Permissions
-Checks ownership and permissions of:
-- `/etc/passwd`
-- `/etc/shadow`
-
-### B. SSH Configuration
-Checks whether the OpenSSH server is installed. If installed, the auditor reviews important SSH security settings.
-
-### C. System Updates
-Checks for available package upgrades using APT.
-
-### D. Firewall Status
-Checks whether the UFW firewall is active and collects its configuration details.
-
-### E. Running Services
-Lists currently running system services for manual review. Services are not automatically disabled.
-
-## 5. Audit Status Categories
-
-- PASS: The check meets the implemented security condition.
-- REVIEW: Further investigation or manual verification is recommended.
-
-A REVIEW result does not automatically mean that a security vulnerability exists.
-
-## 6. Project Structure
+## 4. Project Structure
 
 ```text
 Linux-Hardening-Auditor/
 ├── auditor.py
+├── fixture_auditor.py
 ├── README.md
+├── fixtures/
+│   ├── asset_inventory.csv
+│   ├── hardening_task_notes.txt
+│   ├── linux_baseline.json
+│   ├── sshd_config_hardened_reference.txt
+│   └── sshd_config_sample.txt
 └── reports/
-    └── audit-report.json
+    ├── audit-report.json
+    └── fixture-audit-report.json
 ```
 
-## 7. How to Run the Project
+## 5. Original Linux Hardening Auditor
 
-Open the project directory:
+The original auditor reviews the security condition of a Linux system.
 
-```bash
-cd ~/Linux-Hardening-Auditor
-```
+### Security Checks
 
-Run the auditor:
+**A. File Permissions**
+- Checks `/etc/passwd`.
+- Checks `/etc/shadow`.
+- Reviews ownership and file permissions.
 
-```bash
-python3 auditor.py
-```
+**B. SSH Availability and Configuration**
+- Checks whether the OpenSSH server is installed.
+- Reviews relevant SSH security information when available.
 
-The generated report is saved at:
+**C. System Updates**
+- Checks for available package upgrades using APT.
 
-```text
-reports/audit-report.json
-```
+**D. Firewall Status**
+- Checks whether UFW is active.
+- Collects firewall configuration information.
 
-## 8. Testing and Results
+**E. Running Services**
+- Lists currently running system services for manual security assessment.
 
-The auditor was tested in an Ubuntu Linux virtual machine using Oracle VirtualBox.
+### Audit Status
 
-The recorded audit results after system updates were:
+- PASS: The implemented security condition is satisfied.
+- REVIEW: Further investigation or manual verification is recommended.
 
-- Total checks: 6
-- PASS: 5
-- REVIEW: 1
+A REVIEW result does not automatically indicate a security vulnerability.
 
-The remaining REVIEW result concerned running services requiring manual assessment.
+## 6. SSH Configuration Auditor
 
-An additional investigation identified a failure in the auxiliary `apport-autoreport.service`. Its logs showed that crash-report uploads were not confirmed before the timeout. The underlying system services were subsequently verified as active.
-
-The JSON report was also validated using Python's JSON tool.
-
-## 9. Limitations
-
-- The auditor performs basic security checks and is not a complete vulnerability scanner.
-- Running services require manual assessment based on system requirements.
-- SSH checks depend on the availability of the OpenSSH server.
-- The tool does not automatically modify system configurations or disable services.
-- Results should be interpreted in the context of the operating system and environment.
-
-## 10. Security References
-
-- Ubuntu Security Guide: https://documentation.ubuntu.com/security/compliance/usg/
-- CIS Benchmarks: https://www.cisecurity.org/cis-benchmarks
-- Ubuntu Server Guide: https://documentation.ubuntu.com/server/
-- OpenSSH Configuration Manual: https://man.openbsd.org/sshd_config
-
-## 11. Conclusion
-
-The Linux Hardening Checklist Auditor provides a simple way to review essential Linux security configurations, collect evidence, and identify areas requiring further attention.
-
-This project demonstrates practical knowledge of Linux administration, Python automation, file permissions, SSH security, package management, firewall configuration, system services, and security auditing.
-
-
-
-## Additional Feature: Read-Only SSH Configuration Auditor
-
-As part of the Redkross Research Foundation Linux Security task, an additional read-only auditor was developed using the supplied Linux configuration fixtures.
+The additional `fixture_auditor.py` tool analyses the synthetic Linux configuration resources supplied with the internship assignment.
 
 ### Features
+
 - Reads the supplied Linux security baseline.
-- Reviews SSH daemon configuration settings.
-- Compares observed values with baseline recommendations.
-- Identifies PASS, FAIL, and POLICY REVIEW findings.
-- Includes evidence, severity, rationale, and safe remediation suggestions.
-- Uses the supplied asset inventory to identify the target host.
+- Parses the sample SSH daemon configuration.
+- Compares observed settings with baseline recommendations.
+- Identifies security findings and policy-dependent settings.
+- Records evidence, including configuration lines and values.
+- Provides severity, rationale and safe remediation suggestions.
+- Uses the asset inventory to identify the target system.
 - Generates a separate JSON audit report.
-- Does not automatically modify system configuration.
 
-### Files
-- `fixture_auditor.py` – Read-only configuration auditing script.
-- `fixtures/` – Supplied Linux configuration resources.
-- `reports/fixture-audit-report.json` – Generated audit results.
+### Configuration Checks
 
-### How to Run
-python3 fixture_auditor.py
-```bash
-python3 fixture_auditor.py
-python3 fixture_auditor.py
+The auditor evaluates seven SSH settings:
 
-```
+1. PermitRootLogin
+2. PasswordAuthentication
+3. PermitEmptyPasswords
+4. X11Forwarding
+5. MaxAuthTries
+6. ClientAliveInterval
+7. AllowUsers
 
+### Finding Categories
+
+- PASS: The observed configuration satisfies the evaluated condition.
+- FAIL: A definite mismatch with the supplied baseline or reference is identified.
+- POLICY REVIEW: The setting requires confirmation against organisational policy.
+- REVIEW: Additional investigation is required.
+
+The auditor does not automatically modify system configuration.
+
+**Note:** The supplied configuration files are synthetic training fixtures
