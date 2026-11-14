@@ -1,0 +1,10 @@
+# Synthetic SSH daemon configuration for review only. Not a live system config.
+Port 22
+PermitRootLogin yes
+PasswordAuthentication yes
+PubkeyAuthentication yes
+PermitEmptyPasswords no
+X11Forwarding yes
+MaxAuthTries 12
+ClientAliveInterval 0
+AllowUsers *

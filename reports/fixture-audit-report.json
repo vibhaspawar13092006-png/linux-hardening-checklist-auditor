@@ -1,0 +1,188 @@
+{
+    "audit_date": "2026-11-14T17:13:27+00:00",
+    "project": "Linux Hardening Checklist Auditor",
+    "dataset": "synthetic-linux-baseline-v1",
+    "notice": "Fictional host configuration. Do not apply changes to production systems.",
+    "target_host": "lab-linux-01",
+    "asset_inventory_match": {
+        "asset_id": "AST-001",
+        "hostname": "lab-linux-01",
+        "environment": "training",
+        "owner_role": "platform team",
+        "ssh_admin_required": "yes",
+        "backup_required": "yes",
+        "criticality": "high"
+    },
+    "audit_mode": "read-only",
+    "configuration_modified": false,
+    "summary": {
+        "total": 7,
+        "pass": 1,
+        "fail": 3,
+        "policy_review": 3,
+        "review": 0
+    },
+    "findings": [
+        {
+            "id": "LIN-01",
+            "setting": "PermitRootLogin",
+            "status": "FAIL",
+            "classification": "definite_mismatch",
+            "severity": "high",
+            "observed": "yes",
+            "baseline_observed": "yes",
+            "recommended": "no",
+            "sample_matches_baseline_observation": true,
+            "evidence": {
+                "sample_file": "sshd_config_sample.txt",
+                "line_number": 3,
+                "line": "PermitRootLogin yes",
+                "reference_file": "sshd_config_hardened_reference.txt",
+                "reference_line_number": 4,
+                "reference_line": "PermitRootLogin no",
+                "reference_value_is_illustrative": true
+            },
+            "reference_example": "no",
+            "rationale": "The sample permits root SSH login, while the supplied baseline recommends disabling it.",
+            "safe_remediation": "Disable root SSH login through an authorised, tested configuration change."
+        },
+        {
+            "id": "LIN-02",
+            "setting": "PasswordAuthentication",
+            "status": "POLICY REVIEW",
+            "classification": "policy_dependent",
+            "severity": "medium",
+            "observed": "yes",
+            "baseline_observed": "yes",
+            "recommended": "no_or_controlled",
+            "sample_matches_baseline_observation": true,
+            "evidence": {
+                "sample_file": "sshd_config_sample.txt",
+                "line_number": 4,
+                "line": "PasswordAuthentication yes",
+                "reference_file": "sshd_config_hardened_reference.txt",
+                "reference_line_number": 5,
+                "reference_line": "PasswordAuthentication no",
+                "reference_value_is_illustrative": true
+            },
+            "reference_example": "no",
+            "rationale": "Password authentication is enabled. The baseline allows either disabling it or using controlled authentication, but the supplied files do not establish whether adequate controls exist.",
+            "safe_remediation": "Confirm the organisation's authentication policy. Prefer approved key-based authentication and disable password authentication where required."
+        },
+        {
+            "id": "LIN-03",
+            "setting": "PermitEmptyPasswords",
+            "status": "PASS",
+            "classification": "compliant",
+            "severity": "pass",
+            "observed": "no",
+            "baseline_observed": "no",
+            "recommended": "no",
+            "sample_matches_baseline_observation": true,
+            "evidence": {
+                "sample_file": "sshd_config_sample.txt",
+                "line_number": 6,
+                "line": "PermitEmptyPasswords no",
+                "reference_file": "sshd_config_hardened_reference.txt",
+                "reference_line_number": 7,
+                "reference_line": "PermitEmptyPasswords no",
+                "reference_value_is_illustrative": true
+            },
+            "reference_example": "no",
+            "rationale": "Empty-password authentication is disabled.",
+            "safe_remediation": "No change indicated by this check."
+        },
+        {
+            "id": "LIN-04",
+            "setting": "X11Forwarding",
+            "status": "POLICY REVIEW",
+            "classification": "policy_dependent",
+            "severity": "low",
+            "observed": "yes",
+            "baseline_observed": "yes",
+            "recommended": "no_if_not_required",
+            "sample_matches_baseline_observation": true,
+            "evidence": {
+                "sample_file": "sshd_config_sample.txt",
+                "line_number": 7,
+                "line": "X11Forwarding yes",
+                "reference_file": "sshd_config_hardened_reference.txt",
+                "reference_line_number": 8,
+                "reference_line": "X11Forwarding no",
+                "reference_value_is_illustrative": true
+            },
+            "reference_example": "no",
+            "rationale": "X11 forwarding is enabled. The baseline recommends disabling it when it is not required, but the inventory does not state whether this asset requires X11 forwarding.",
+            "safe_remediation": "Confirm the requirement with the asset owner. Disable X11 forwarding if it is not needed."
+        },
+        {
+            "id": "LIN-05",
+            "setting": "MaxAuthTries",
+            "status": "FAIL",
+            "classification": "definite_mismatch",
+            "severity": "medium",
+            "observed": "12",
+            "baseline_observed": "12",
+            "recommended": "4_or_approved_value",
+            "sample_matches_baseline_observation": true,
+            "evidence": {
+                "sample_file": "sshd_config_sample.txt",
+                "line_number": 8,
+                "line": "MaxAuthTries 12",
+                "reference_file": "sshd_config_hardened_reference.txt",
+                "reference_line_number": 9,
+                "reference_line": "MaxAuthTries 4",
+                "reference_value_is_illustrative": true
+            },
+            "reference_example": "4",
+            "rationale": "The configured limit is 12, exceeding the reference value of 4. No approved exception is identified in the supplied resources.",
+            "safe_remediation": "Use a limit of 4 unless the asset owner has documented and approved a different value."
+        },
+        {
+            "id": "LIN-06",
+            "setting": "ClientAliveInterval",
+            "status": "POLICY REVIEW",
+            "classification": "policy_dependent",
+            "severity": "low",
+            "observed": "0",
+            "baseline_observed": "0",
+            "recommended": "set_approved_idle_timeout",
+            "sample_matches_baseline_observation": true,
+            "evidence": {
+                "sample_file": "sshd_config_sample.txt",
+                "line_number": 9,
+                "line": "ClientAliveInterval 0",
+                "reference_file": "sshd_config_hardened_reference.txt",
+                "reference_line_number": 10,
+                "reference_line": "ClientAliveInterval 300",
+                "reference_value_is_illustrative": true
+            },
+            "reference_example": "300",
+            "rationale": "ClientAliveInterval is 0, which means no SSH client-alive interval is configured. The baseline requires an organisation-approved idle timeout, but does not specify its numeric value.",
+            "safe_remediation": "Ask the asset owner for the approved idle timeout. The reference value of 300 seconds is illustrative, not a confirmed organisational requirement."
+        },
+        {
+            "id": "LIN-07",
+            "setting": "AllowUsers",
+            "status": "FAIL",
+            "classification": "definite_mismatch",
+            "severity": "medium",
+            "observed": "*",
+            "baseline_observed": "*",
+            "recommended": "explicit_approved_accounts",
+            "sample_matches_baseline_observation": true,
+            "evidence": {
+                "sample_file": "sshd_config_sample.txt",
+                "line_number": 10,
+                "line": "AllowUsers *",
+                "reference_file": "sshd_config_hardened_reference.txt",
+                "reference_line_number": 12,
+                "reference_line": "AllowUsers trainee-admin",
+                "reference_value_is_illustrative": true
+            },
+            "reference_example": "trainee-admin",
+            "rationale": "The AllowUsers directive contains a wildcard rather than restricting SSH access to explicit approved accounts.",
+            "safe_remediation": "Obtain the approved SSH account list from the asset owner and replace the wildcard with the confirmed account names."
+        }
+    ]
+}

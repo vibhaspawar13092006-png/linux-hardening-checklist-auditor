@@ -116,3 +116,32 @@ The Linux Hardening Checklist Auditor provides a simple way to review essential 
 
 This project demonstrates practical knowledge of Linux administration, Python automation, file permissions, SSH security, package management, firewall configuration, system services, and security auditing.
 
+
+
+## Additional Feature: Read-Only SSH Configuration Auditor
+
+As part of the Redkross Research Foundation Linux Security task, an additional read-only auditor was developed using the supplied Linux configuration fixtures.
+
+### Features
+- Reads the supplied Linux security baseline.
+- Reviews SSH daemon configuration settings.
+- Compares observed values with baseline recommendations.
+- Identifies PASS, FAIL, and POLICY REVIEW findings.
+- Includes evidence, severity, rationale, and safe remediation suggestions.
+- Uses the supplied asset inventory to identify the target host.
+- Generates a separate JSON audit report.
+- Does not automatically modify system configuration.
+
+### Files
+- `fixture_auditor.py` – Read-only configuration auditing script.
+- `fixtures/` – Supplied Linux configuration resources.
+- `reports/fixture-audit-report.json` – Generated audit results.
+
+### How to Run
+python3 fixture_auditor.py
+```bash
+python3 fixture_auditor.py
+python3 fixture_auditor.py
+
+```
+

@@ -1,0 +1,5 @@
+asset_id,hostname,environment,owner_role,ssh_admin_required,backup_required,criticality
+AST-001,lab-linux-01,training,platform team,yes,yes,high
+AST-002,lab-linux-02,training,developer team,no,yes,medium
+AST-003,lab-web-01,training,web team,yes,yes,high
+AST-004,lab-archive-01,training,records team,no,yes,medium

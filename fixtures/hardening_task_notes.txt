@@ -1,0 +1,1 @@
+Use the supplied configuration fixtures to build a read-only checker. Report each finding, the evidence line/field, severity, rationale and a safe remediation suggestion. Do not change system configuration automatically. A baseline checker should distinguish a definite mismatch from a setting that depends on the organisation's policy.

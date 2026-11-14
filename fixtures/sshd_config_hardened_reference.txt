@@ -1,0 +1,12 @@
+# Reference example for discussion; adapt only in a disposable lab.
+# Ensure an alternate session and validated access before changing SSH on any real host.
+Port 22
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+PermitEmptyPasswords no
+X11Forwarding no
+MaxAuthTries 4
+ClientAliveInterval 300
+ClientAliveCountMax 2
+AllowUsers trainee-admin

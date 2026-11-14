@@ -1,0 +1,56 @@
+{
+  "dataset": "synthetic-linux-baseline-v1",
+  "notice": "Fictional host configuration. Do not apply changes to production systems.",
+  "host": "lab-linux-01",
+  "checks": [
+    {
+      "id": "LIN-01",
+      "setting": "PermitRootLogin",
+      "observed": "yes",
+      "recommended": "no",
+      "severity": "high"
+    },
+    {
+      "id": "LIN-02",
+      "setting": "PasswordAuthentication",
+      "observed": "yes",
+      "recommended": "no_or_controlled",
+      "severity": "medium"
+    },
+    {
+      "id": "LIN-03",
+      "setting": "PermitEmptyPasswords",
+      "observed": "no",
+      "recommended": "no",
+      "severity": "pass"
+    },
+    {
+      "id": "LIN-04",
+      "setting": "X11Forwarding",
+      "observed": "yes",
+      "recommended": "no_if_not_required",
+      "severity": "low"
+    },
+    {
+      "id": "LIN-05",
+      "setting": "MaxAuthTries",
+      "observed": "12",
+      "recommended": "4_or_approved_value",
+      "severity": "medium"
+    },
+    {
+      "id": "LIN-06",
+      "setting": "ClientAliveInterval",
+      "observed": "0",
+      "recommended": "set_approved_idle_timeout",
+      "severity": "low"
+    },
+    {
+      "id": "LIN-07",
+      "setting": "AllowUsers",
+      "observed": "*",
+      "recommended": "explicit_approved_accounts",
+      "severity": "medium"
+    }
+  ]
+}
